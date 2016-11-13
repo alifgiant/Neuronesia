@@ -1,18 +1,17 @@
 package app;
-
-
-
 import controller.AboutController;
 import controller.HomeController;
 import controller.MemberController;
 import controller.ReportController;
 import controller.TransactionController;
 import controller.Controller;
+import database.DatabaseManager;
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
 
 /**
  *
@@ -20,16 +19,16 @@ import controller.Controller;
  */
 public class MyApplication {
           
-    private Controller currentController;    
-
+    private Controller currentController;   
+    private static DatabaseManager extras;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {        
         MyApplication main = new MyApplication();
-        
-        // start application
-        main.startNextFrame(null, HomeController.class);               
+        extras = new DatabaseManager();
+        extras.connectToDatabase("jdbc:mysql://localhost:3306/neuronesia_db");
+        main.startNextFrame(null, HomeController.class);
     }
     
     public void startNextFrame(Controller from, Class to){
@@ -54,6 +53,20 @@ public class MyApplication {
         if (!(currentController instanceof HomeController)){
             // re start application            
             startNextFrame(currentController, HomeController.class); 
+        }
+    }
+    
+    public ArrayList<String []> getExtras(String key){
+        if(key.equals("member")){
+            return extras.loadMember();
+        }
+        //else if(key.equals(""))
+        return null;
+    }
+    
+    public void putExtra(String key, ArrayList<String []> value){
+        if(key.equals("member")){
+            extras.saveMember(value);
         }
     }
 }

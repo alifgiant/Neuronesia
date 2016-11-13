@@ -6,7 +6,10 @@
 package controller;
 
 import app.MyApplication;
+import database.DatabaseManager;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,7 +17,7 @@ import javax.swing.JFrame;
  */
 public abstract class Controller {
     public JFrame view;
-    protected MyApplication context;       
+    protected MyApplication context;
 
     protected Controller(MyApplication context, JFrame view) {
         this.context = context;
@@ -23,4 +26,5 @@ public abstract class Controller {
     
     public abstract void start();
     public abstract void stop();
+    
 }

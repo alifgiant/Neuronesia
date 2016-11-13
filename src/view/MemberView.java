@@ -5,9 +5,13 @@
  */
 package view;
 
+import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -20,6 +24,15 @@ public class MemberView extends javax.swing.JFrame {
      */
     public MemberView() {
         initComponents();
+        //DatePicker
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl datePanel = datePanel = new JDatePanelImpl(model,p);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        jPanel1.add(datePicker);
     }
 
     /**
@@ -43,16 +56,16 @@ public class MemberView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jEmailText = new javax.swing.JTextField();
-        jBirthText = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jKodeText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jMemberTable = new javax.swing.JTable();
         jAddButton = new javax.swing.JButton();
         jChangeButton = new javax.swing.JButton();
         jSaveButton = new javax.swing.JButton();
         jDeleteButton = new javax.swing.JButton();
         jExitButton = new javax.swing.JButton();
+        jTanggalBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 650));
@@ -92,7 +105,7 @@ public class MemberView extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tanggal Lahir");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jMemberTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
@@ -115,7 +128,7 @@ public class MemberView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jMemberTable);
 
         jAddButton.setText("Tambah");
 
@@ -126,6 +139,9 @@ public class MemberView extends javax.swing.JFrame {
         jDeleteButton.setText("Hapus");
 
         jExitButton.setText("Keluar");
+
+        jTanggalBox.setEditable(true);
+        jTanggalBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,7 +173,7 @@ public class MemberView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                                 .addComponent(jTeleponText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -166,7 +182,7 @@ public class MemberView extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTanggalBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +225,7 @@ public class MemberView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTanggalBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -268,10 +284,6 @@ public class MemberView extends javax.swing.JFrame {
         return jAlamatText;
     }
 
-    public JTextField getjBirthText() {
-        return jBirthText;
-    }
-
     public JButton getjChangeButton() {
         return jChangeButton;
     }
@@ -296,18 +308,30 @@ public class MemberView extends javax.swing.JFrame {
         return jSaveButton;
     }
 
-    public JTable getjTable1() {
-        return jTable1;
+    public JTable getjMemberTable() {
+        return jMemberTable;
     }
 
     public JTextField getjTeleponText() {
         return jTeleponText;
     }
 
+    public JTextField getjNameText() {
+        return jNameText;
+    }
+
+    public void setjNameText(JTextField jNameText) {
+        this.jNameText = jNameText;
+    }
+    
+    public void setjTanggalBox(){
+        
+    }
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAddButton;
     private javax.swing.JTextField jAlamatText;
-    private javax.swing.JTextField jBirthText;
     private javax.swing.JButton jChangeButton;
     private javax.swing.JButton jDeleteButton;
     private javax.swing.JTextField jEmailText;
@@ -319,11 +343,12 @@ public class MemberView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JTable jMemberTable;
     private javax.swing.JTextField jNameText;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jSaveButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> jTanggalBox;
     private javax.swing.JTextField jTeleponText;
     private javax.swing.JLabel jTitleLabel;
     private javax.swing.JLabel jTitleLabel1;
