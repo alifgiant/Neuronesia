@@ -63,6 +63,13 @@ public class MemberController extends Controller{
         memberView.getjExitButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                memberView.setjKodeText("");
+                memberView.setjNameText("");
+                memberView.setjAlamatText("");
+                //memberView.setjTangalLahir("");
+                memberView.setjTeleponText("");
+                memberView.setjEmailText("");
+                stop();
                 context.finish();
             }
         });
@@ -137,20 +144,25 @@ public class MemberController extends Controller{
         });
         memberView.getjNameText().addKeyListener(new KeyAdapter(){
            @Override
-           public void keyPressed(KeyEvent e){
-                if(memberView.getjNameText().getText().length() <= 3 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+           public void keyReleased(KeyEvent e){
+                /*if(memberView.getjNameText().getText().length() <= 3 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
                     tempId = tempId.substring(0,memberView.getjNameText().getText().length()-1);
                 }
-                else if(memberView.getjKodeText().getText().length() + 5 < 3 && e.getKeyCode() != KeyEvent.VK_BACK_SPACE){
+                else if(memberView.getjKodeText().getText().length() < 8 && e.getKeyCode() != KeyEvent.VK_BACK_SPACE && Character.isLetter(e.getKeyChar())){
                     tempId += String.valueOf(e.getKeyChar());
-                }
-                memberView.setjKodeText(tempId+randId);
+                    System.out.println("typed");
+                }*/
+                tempId = memberView.getjNameText().getText();
+                System.out.println("asdas");
+                if(tempId.length() > 3) tempId = tempId.substring(0,3);
+                memberView.setjKodeText(tempId.toUpperCase()+randId);
            }
         });
     }
 
     @Override
-    public void stop() {        
+    public void stop() {
+        
         super.view.dispose();
     }
     
@@ -172,7 +184,7 @@ public class MemberController extends Controller{
     
     public String generateKodeAnggota(){
         String id = UUID.randomUUID().toString();
-        return id.substring(0, 4);
+        return  id.substring(0, 4).toUpperCase();
     }
     
 }
