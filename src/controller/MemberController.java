@@ -6,8 +6,17 @@
 package controller;
 
 import app.MyApplication;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.MemberView;
 
@@ -17,7 +26,7 @@ import view.MemberView;
  */
 public class MemberController extends Controller{    
     private static MemberController controller;
-    
+    private static String randId, tempId;
     public static MemberController newInstance(MyApplication context){
         if (controller == null) {
             controller = new MemberController(context);
@@ -33,28 +42,55 @@ public class MemberController extends Controller{
     public void start() {
         super.view.setVisible(true);
         MemberView memberView = (MemberView)super.view;
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        //set table data
         DefaultTableModel tableModel = (DefaultTableModel) memberView.getjMemberTable().getModel();
-        ArrayList<String []> listMember = context.getExtras("member");
-        setTableContent(listMember, tableModel);
+        ArrayList<String []> oldListMember = context.getExtras("member");
+        ArrayList<String []> newListMember = new ArrayList<>();
+        setTableContent(oldListMember, tableModel);
+        //set default date
+        try {
+            memberView.getjDateChooser().setDate(dateFormat.parse("01-01-1995"));
+        } catch (ParseException ex) {
+            Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //set generated id
+        randId = "-" + generateKodeAnggota();
+        tempId = "";
+        memberView.setjKodeText(tempId+randId);
         
+        //OnClick
         memberView.getjExitButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 context.finish();
             }
         });
-        
         memberView.getjAddButton().addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt){
-                tableModel.addRow(new Object[]{
+                Object [] newMember = new Object[]{
                     memberView.getjKodeText().getText(),
                     memberView.getjNameText().getText(),
                     memberView.getjAlamatText().getText(),
-                    "Dummy",
+                    dateFormat.format(memberView.getjDateChooser().getDate()),
                     memberView.getjEmailText().getText(),
                     memberView.getjTeleponText().getText()
-                });
+                };
+                tableModel.addRow(newMember);
+            }
+        });
+        memberView.getjChangeButton().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                int row = memberView.getjMemberTable().getSelectedRow();
+                if(row != -1){
+                    memberView.getjMemberTable().setValueAt(memberView.getjNameText().getText(), row, 1);
+                    memberView.getjMemberTable().setValueAt(memberView.getjAlamatText().getText(), row, 2);
+                    memberView.getjMemberTable().setValueAt(dateFormat.format(memberView.getjDateChooser().getDate()), row, 3);
+                    memberView.getjMemberTable().setValueAt(memberView.getjEmailText().getText(), row, 4);
+                    memberView.getjMemberTable().setValueAt(memberView.getjTeleponText().getText(), row, 5);
+                }
             }
         });
         memberView.getjDeleteButton().addMouseListener(new MouseAdapter(){
@@ -80,7 +116,36 @@ public class MemberController extends Controller{
                     });
                 }
                 context.putExtra("member", listMember);
+                JOptionPane.showMessageDialog(memberView, "Data Anggota berhasil disimpan!");
             }    
+        });
+        memberView.getjMemberTable().addMouseListener(new MouseAdapter(){
+           @Override
+           public void mouseClicked(java.awt.event.MouseEvent event){
+               System.out.println("Table clicked");
+               int row = memberView.getjMemberTable().rowAtPoint(event.getPoint());
+               memberView.setjNameText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 1)));
+               memberView.setjAlamatText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 2)));
+               try {
+                   memberView.setjTangalLahir(String.valueOf(memberView.getjMemberTable().getValueAt(row, 3)));
+               } catch (ParseException ex) {
+                   ex.printStackTrace();
+               }
+               memberView.setjEmailText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 4)));
+               memberView.setjTeleponText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 5)));
+           } 
+        });
+        memberView.getjNameText().addKeyListener(new KeyAdapter(){
+           @Override
+           public void keyPressed(KeyEvent e){
+                if(memberView.getjNameText().getText().length() <= 3 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+                    tempId = tempId.substring(0,memberView.getjNameText().getText().length()-1);
+                }
+                else if(memberView.getjKodeText().getText().length() + 5 < 3 && e.getKeyCode() != KeyEvent.VK_BACK_SPACE){
+                    tempId += String.valueOf(e.getKeyChar());
+                }
+                memberView.setjKodeText(tempId+randId);
+           }
         });
     }
 
@@ -103,6 +168,11 @@ public class MemberController extends Controller{
                 });
             }
         }
+    }
+    
+    public String generateKodeAnggota(){
+        String id = UUID.randomUUID().toString();
+        return id.substring(0, 4);
     }
     
 }

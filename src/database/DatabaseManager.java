@@ -36,55 +36,129 @@ public class DatabaseManager {
         }
     }
     
-    public void saveMember(ArrayList<String []> listMember){
+    public void createAnggota(ArrayList<String []> listMember){
         try {
-            System.out.println("Saving data...");
+            System.out.println("Inserting data...");
             statement = connection.createStatement();
             String sqlCommand;
             for(String [] dataMember  : listMember){
                 for(int i = 0; i <= 5; i++){
-                    sqlCommand = "INSERT INTO ANGGOTA VALUES ('" +
-                            dataMember[0] + "','" +
-                            dataMember[1] + "','" +
-                            dataMember[2] + "','" +
-                            dataMember[3] + "','" +
-                            dataMember[4] + "','" +
-                            dataMember[5] 
-                            + "');";
+                    sqlCommand = "UPDATE ANGGOTA SET " +
+                            "Nama='" + dataMember[1] + "'," +
+                            "Telepon='" + dataMember[5] + "'," +
+                            "Email='" + dataMember[4] + "'," +
+                            "Tanggal_Lahir='" + dataMember[3] + "'," +
+                            "Alamat='" + dataMember[2] + "'" 
+                            + " WHERE No_Anggota='" + dataMember[0] + "'";
                     statement.execute(sqlCommand);
-                }    
+                }
+                
             }
-            System.out.println("Saving success!");
+            System.out.println("Insert success!");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Insert failed!");
         }
-                
     }
     
-    public ArrayList<String[]> loadMember(){
+    public ArrayList<String[]> readAnggota(){
         try {
-            String sqlCommand;
-            ResultSet resultSet;
-            ArrayList<String []> listMember = new ArrayList<>();         
-            System.out.println("Loading members data...");
+            System.out.println("Loading data ...");
             statement = connection.createStatement();
-            sqlCommand = "SELECT * FROM ANGGOTA";
+            String sqlCommand = "SELECT * FROM ANGGOTA";
+            ResultSet resultSet;
+            ArrayList<String []> listMember = new ArrayList<>();                     
             resultSet = statement.executeQuery(sqlCommand);
             while(resultSet.next()){
                 String value [] = new String [6];
                 value[0] = resultSet.getString("No_Anggota");
                 value[1] = resultSet.getString("Nama");
-                value[2] = resultSet.getString("Telepon");
-                value[3] = resultSet.getString("Email");
-                value[4] = resultSet.getString("Tanggal_Lahir");
-                value[5] = resultSet.getString("Alamat");
+                value[2] = resultSet.getString("Alamat");
+                value[3] = resultSet.getString("Tanggal_Lahir");
+                value[4] = resultSet.getString("Email");
+                value[5] = resultSet.getString("Telepon");
                 listMember.add(value);
             }
             System.out.println("Loading success!");
             return listMember;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Loading failed!");
             return null;
         }
+    }
+    
+    public void updateMember(ArrayList<String []> listMember){
+        try {
+            System.out.println("Updating data...");
+            statement = connection.createStatement();
+            String sqlCommand;
+            for(String [] dataMember  : listMember){
+                for(int i = 0; i <= 5; i++){
+                    sqlCommand = "UPDATE ANGGOTA SET " +
+                            "Nama='" + dataMember[1] + "'," +
+                            "Telepon='" + dataMember[5] + "'," +
+                            "Email='" + dataMember[4] + "'," +
+                            "Tanggal_Lahir='" + dataMember[3] + "'," +
+                            "Alamat='" + dataMember[2] + "'" 
+                            + " WHERE No_Anggota='" + dataMember[0] + "'";
+                    statement.execute(sqlCommand);
+                }
+                
+            }
+            System.out.println("Update success!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Update failed!");
+        }        
+    }
+    
+    public void deleteMember(ArrayList<String []> listMember){
+        try {
+            System.out.println("Deleting data...");
+            statement = connection.createStatement();
+            String sqlCommand;
+            for(String [] dataMember  : listMember){
+                for(int i = 0; i <= 5; i++){
+                    sqlCommand = "DELETE FROM ANGGOTA WHERE" +
+                            "Nama='" + dataMember[1] + "'," +
+                            "Telepon='" + dataMember[5] + "'," +
+                            "Email='" + dataMember[4] + "'," +
+                            "Tanggal_Lahir='" + dataMember[3] + "'," +
+                            "Alamat='" + dataMember[2] + "'" 
+                            + " WHERE No_Anggota='" + dataMember[0] + "'";
+                    statement.execute(sqlCommand);
+                }
+                
+            }
+            System.out.println("Delete success!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Delete failed!");
+        }        
+    }
+    
+    public void saveAnggota(ArrayList<String []> listMember){
+        try {
+            System.out.println("Truncate table...");
+            statement = connection.createStatement();
+            statement.executeUpdate("TRUNCATE TABLE ANGGOTA");
+            System.out.println("Truncate table success!");
+            String sqlCommand;
+            for(String [] dataMember  : listMember){
+                sqlCommand = "INSERT INTO ANGGOTA VALUES ('" +
+                        dataMember[0] + "','" +
+                        dataMember[1] + "','" +
+                        dataMember[5] + "','" +
+                        dataMember[4] + "','" +
+                        dataMember[3] + "','" +
+                        dataMember[2] + "')";
+                statement.executeUpdate(sqlCommand);
+            }
+            System.out.println("Reinsert success!");
+        } catch (SQLException ex) {
+            System.out.println("Reinsert failed!");
+            ex.printStackTrace();
+        }        
     }
 }

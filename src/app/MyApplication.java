@@ -58,7 +58,7 @@ public class MyApplication {
     
     public ArrayList<String []> getExtras(String key){
         if(key.equals("member")){
-            return extras.loadMember();
+            return extras.readAnggota();
         }
         //else if(key.equals(""))
         return null;
@@ -66,7 +66,10 @@ public class MyApplication {
     
     public void putExtra(String key, ArrayList<String []> value){
         if(key.equals("member")){
-            extras.saveMember(value);
+            extras.saveAnggota(value);
+        }
+        else if(key.equals("editMember")){
+            extras.updateMember(value);
         }
     }
 }
