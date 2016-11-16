@@ -36,15 +36,15 @@ public class MyApplication {
             from.stop();
         }        
         if (to == HomeController.class) {
-            currentController = HomeController.newInstance(this);            
+            currentController = new HomeController(this);          
         }else if (to == MemberController.class) {
-            currentController = MemberController.newInstance(this);            
+            currentController = new MemberController(this);            
         }else if (to == TransactionController.class) {
-            currentController = TransactionController.newInstance(this);            
+            currentController = new TransactionController(this);            
         }else if (to == ReportController.class) {
-            currentController = ReportController.newInstance(this);            
+            currentController = new ReportController(this);            
         }else{
-            currentController = AboutController.newInstance(this);            
+            currentController = new AboutController(this);            
         }
         currentController.start();
     }

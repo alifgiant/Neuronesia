@@ -109,6 +109,8 @@ public class MemberView extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tanggal Lahir");
 
+        jKodeText.setEditable(false);
+
         jMemberTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}

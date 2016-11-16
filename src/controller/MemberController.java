@@ -9,6 +9,7 @@ import app.MyApplication;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,16 +26,17 @@ import view.MemberView;
  * @author MuhammadAlif
  */
 public class MemberController extends Controller{    
-    private static MemberController controller;
+    //private static MemberController controller;
     private static String randId, tempId;
-    public static MemberController newInstance(MyApplication context){
+    
+    /*public static MemberController newInstance(MyApplication context){
         if (controller == null) {
             controller = new MemberController(context);
         }
         return controller;
-    }
+    }*/
     
-    private MemberController(MyApplication context) {
+    public MemberController(MyApplication context) {
         super(context, new MemberView());        
     }        
 
@@ -63,13 +65,6 @@ public class MemberController extends Controller{
         memberView.getjExitButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                memberView.setjKodeText("");
-                memberView.setjNameText("");
-                memberView.setjAlamatText("");
-                //memberView.setjTangalLahir("");
-                memberView.setjTeleponText("");
-                memberView.setjEmailText("");
-                stop();
                 context.finish();
             }
         });
@@ -85,6 +80,8 @@ public class MemberController extends Controller{
                     memberView.getjTeleponText().getText()
                 };
                 tableModel.addRow(newMember);
+                randId = "-" + generateKodeAnggota();
+                memberView.setjKodeText(tempId.toUpperCase()+randId);
             }
         });
         memberView.getjChangeButton().addMouseListener(new MouseAdapter(){
@@ -145,15 +142,7 @@ public class MemberController extends Controller{
         memberView.getjNameText().addKeyListener(new KeyAdapter(){
            @Override
            public void keyReleased(KeyEvent e){
-                /*if(memberView.getjNameText().getText().length() <= 3 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-                    tempId = tempId.substring(0,memberView.getjNameText().getText().length()-1);
-                }
-                else if(memberView.getjKodeText().getText().length() < 8 && e.getKeyCode() != KeyEvent.VK_BACK_SPACE && Character.isLetter(e.getKeyChar())){
-                    tempId += String.valueOf(e.getKeyChar());
-                    System.out.println("typed");
-                }*/
                 tempId = memberView.getjNameText().getText();
-                System.out.println("asdas");
                 if(tempId.length() > 3) tempId = tempId.substring(0,3);
                 memberView.setjKodeText(tempId.toUpperCase()+randId);
            }
@@ -162,7 +151,6 @@ public class MemberController extends Controller{
 
     @Override
     public void stop() {
-        
         super.view.dispose();
     }
     
@@ -179,6 +167,13 @@ public class MemberController extends Controller{
                     String.valueOf(member[5]),
                 });
             }
+        }
+    }
+    
+    public void removeAllListeners(MemberView v){
+        MouseListener ml [] = v.getjAddButton().getListeners(MouseListener.class);
+        for(MouseListener m : ml){
+            v.getjAddButton().removeMouseListener(m);
         }
     }
     

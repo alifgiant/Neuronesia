@@ -14,16 +14,16 @@ import view.ReportView;
  * @author MuhammadAlif
  */
 public class ReportController extends Controller{
-    private static ReportController controller;
+    /*private static ReportController controller;
     
     public static ReportController newInstance(MyApplication context){
         if (controller == null) {
             controller = new ReportController(context);
         }
         return controller;
-    }
+    }*/
     
-    private ReportController(MyApplication context) {
+    public ReportController(MyApplication context) {
         super(context, new ReportView());        
     }        
 

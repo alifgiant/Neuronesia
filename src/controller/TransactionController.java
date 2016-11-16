@@ -14,16 +14,16 @@ import view.TransactionView;
  * @author MuhammadAlif
  */
 public class TransactionController extends Controller{
-     private static TransactionController controller;
+    /*private static TransactionController controller;
     
     public static TransactionController newInstance(MyApplication context){
         if (controller == null) {
             controller = new TransactionController(context);
         }
         return controller;
-    }
+    }*/
     
-    private TransactionController(MyApplication context) {
+    public TransactionController(MyApplication context) {
         super(context, new TransactionView());        
     }        
 

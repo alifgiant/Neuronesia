@@ -14,16 +14,16 @@ import view.AboutView;
  * @author MuhammadAlif
  */
 public class AboutController extends Controller{
-    private static AboutController controller;
+    /*private static AboutController controller;
     
     public static AboutController newInstance(MyApplication context){
         if (controller == null) {
             controller = new AboutController(context);
         }
         return controller;
-    }
+    }*/
     
-    private AboutController(MyApplication context) {
+    public AboutController(MyApplication context) {
         super(context, new AboutView());        
     }        
 

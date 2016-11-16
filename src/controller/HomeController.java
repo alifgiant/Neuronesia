@@ -16,18 +16,17 @@ import view.HomeView;
  */
 public class HomeController extends Controller{
     
-    private static HomeController controller;
+   /* private static HomeController controller;
     
     public static HomeController newInstance(MyApplication context){
         if (controller == null) {
             controller = new HomeController(context);
         }
         return controller;
-    }
+    }*/
 
-    private HomeController(MyApplication context) {        
-        super(context, new HomeView());
-        
+    public HomeController(MyApplication context) {        
+        super(context, new HomeView());        
     }        
     
     @Override
