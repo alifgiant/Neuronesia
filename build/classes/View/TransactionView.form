@@ -71,8 +71,8 @@
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jKodeText" max="32767" attributes="0"/>
-                              <Component id="jNameText" alignment="0" pref="110" max="32767" attributes="0"/>
-                              <Component id="jAlamatText" alignment="0" pref="110" max="32767" attributes="0"/>
+                              <Component id="jNoAnggotaText" alignment="0" pref="110" max="32767" attributes="0"/>
+                              <Component id="jTglTransaksiText" alignment="0" pref="110" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -89,7 +89,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jBirthText" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="jKodeLayananText" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -135,18 +135,18 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jNameText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jNoAnggotaText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jAlamatText" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTglTransaksiText" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBirthText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jKodeLayananText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -212,7 +212,7 @@
             <Property name="text" type="java.lang.String" value="No Transaksi"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jNameText">
+        <Component class="javax.swing.JTextField" name="jNoAnggotaText">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -222,7 +222,7 @@
             <Property name="text" type="java.lang.String" value="No Anggota"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jAlamatText">
+        <Component class="javax.swing.JTextField" name="jTglTransaksiText">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -252,7 +252,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jEmailText">
         </Component>
-        <Component class="javax.swing.JTextField" name="jBirthText">
+        <Component class="javax.swing.JTextField" name="jKodeLayananText">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

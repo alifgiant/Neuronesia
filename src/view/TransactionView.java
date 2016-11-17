@@ -47,15 +47,15 @@ public class TransactionView extends javax.swing.JFrame {
         jTitleLabel = new javax.swing.JLabel();
         jTitleLabel1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jNameText = new javax.swing.JTextField();
+        jNoAnggotaText = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jAlamatText = new javax.swing.JTextField();
+        jTglTransaksiText = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTeleponText = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jEmailText = new javax.swing.JTextField();
-        jBirthText = new javax.swing.JTextField();
+        jKodeLayananText = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jKodeText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -158,8 +158,8 @@ public class TransactionView extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jKodeText)
-                            .addComponent(jNameText, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(jAlamatText, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                            .addComponent(jNoAnggotaText, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                            .addComponent(jTglTransaksiText, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                         .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -173,7 +173,7 @@ public class TransactionView extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jKodeLayananText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,15 +208,15 @@ public class TransactionView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jNoAnggotaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jAlamatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTglTransaksiText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jKodeLayananText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -272,11 +272,11 @@ public class TransactionView extends javax.swing.JFrame {
     }
 
     public JTextField getjAlamatText() {
-        return jAlamatText;
+        return jTglTransaksiText;
     }
 
     public JTextField getjBirthText() {
-        return jBirthText;
+        return jKodeLayananText;
     }
 
     public JButton getjChangeButton() {
@@ -313,12 +313,11 @@ public class TransactionView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAddButton;
-    private javax.swing.JTextField jAlamatText;
-    private javax.swing.JTextField jBirthText;
     private javax.swing.JButton jChangeButton;
     private javax.swing.JButton jDeleteButton;
     private javax.swing.JTextField jEmailText;
     private javax.swing.JButton jExitButton;
+    private javax.swing.JTextField jKodeLayananText;
     private javax.swing.JTextField jKodeText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -326,12 +325,13 @@ public class TransactionView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jNameText;
+    private javax.swing.JTextField jNoAnggotaText;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jSaveButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTeleponText;
+    private javax.swing.JTextField jTglTransaksiText;
     private javax.swing.JLabel jTitleLabel;
     private javax.swing.JLabel jTitleLabel1;
     // End of variables declaration//GEN-END:variables

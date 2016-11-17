@@ -30,9 +30,19 @@ public class TransactionController extends Controller{
     @Override
     public void start() {
         super.view.setVisible(true);
+        TransactionView transactionView = (TransactionView)super.view;
+        //OnClick
         
-        TransactionView reportView = (TransactionView)super.view;
-        reportView.getjExitButton().addMouseListener(new MouseAdapter() {
+        transactionView.getjAddButton().addMouseListener(new MouseAdapter() {
+           @Override
+           public void mouseClicked(java.awt.event.MouseEvent evt){
+               Object transactions [] = new Object [] {
+                   transactionView.getjKodeText().getText(),
+                   //transactionView.getj
+               };
+           }
+        });
+        transactionView.getjExitButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 context.finish();

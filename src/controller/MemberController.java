@@ -178,8 +178,7 @@ public class MemberController extends Controller{
     }
     
     public String generateKodeAnggota(){
-        String id = UUID.randomUUID().toString();
-        return  id.substring(0, 4).toUpperCase();
+        //
     }
     
 }
