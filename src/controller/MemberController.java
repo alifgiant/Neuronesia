@@ -1,20 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import app.MyApplication;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,16 +18,7 @@ import view.MemberView;
  *
  * @author MuhammadAlif
  */
-public class MemberController extends Controller{    
-    //private static MemberController controller;
-    private static String randId, tempId;
-    
-    /*public static MemberController newInstance(MyApplication context){
-        if (controller == null) {
-            controller = new MemberController(context);
-        }
-        return controller;
-    }*/
+public class MemberController extends Controller{
     
     public MemberController(MyApplication context) {
         super(context, new MemberView());        
@@ -42,26 +26,29 @@ public class MemberController extends Controller{
 
     @Override
     public void start() {
+        /* Init View */
         super.view.setVisible(true);
         MemberView memberView = (MemberView)super.view;
+        
+        /* Set date format */
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        //set table data
+        
+        /* Set table data */
         DefaultTableModel tableModel = (DefaultTableModel) memberView.getjMemberTable().getModel();
         ArrayList<String []> oldListMember = context.getExtras("member");
-        ArrayList<String []> newListMember = new ArrayList<>();
         setTableContent(oldListMember, tableModel);
-        //set default date
+        
+        /* Set default date */
         try {
             memberView.getjDateChooser().setDate(dateFormat.parse("01-01-1995"));
         } catch (ParseException ex) {
             Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //set generated id
-        randId = "-" + generateKodeAnggota();
-        tempId = "";
-        memberView.setjKodeText(tempId+randId);
         
-        //OnClick
+        /* Set generated id */
+        memberView.setjKodeText(generateKodeAnggota(tableModel));
+        
+        /* Set Listener */
         memberView.getjExitButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -72,7 +59,7 @@ public class MemberController extends Controller{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 Object [] newMember = new Object[]{
-                    memberView.getjKodeText().getText(),
+                    generateKodeAnggota(tableModel),
                     memberView.getjNameText().getText(),
                     memberView.getjAlamatText().getText(),
                     dateFormat.format(memberView.getjDateChooser().getDate()),
@@ -80,8 +67,7 @@ public class MemberController extends Controller{
                     memberView.getjTeleponText().getText()
                 };
                 tableModel.addRow(newMember);
-                randId = "-" + generateKodeAnggota();
-                memberView.setjKodeText(tempId.toUpperCase()+randId);
+                memberView.setjKodeText(generateKodeAnggota(tableModel));
             }
         });
         memberView.getjChangeButton().addMouseListener(new MouseAdapter(){
@@ -128,24 +114,15 @@ public class MemberController extends Controller{
            public void mouseClicked(java.awt.event.MouseEvent event){
                System.out.println("Table clicked");
                int row = memberView.getjMemberTable().rowAtPoint(event.getPoint());
+               memberView.setjKodeText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 0)));
                memberView.setjNameText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 1)));
                memberView.setjAlamatText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 2)));
                try {
                    memberView.setjTangalLahir(String.valueOf(memberView.getjMemberTable().getValueAt(row, 3)));
-               } catch (ParseException ex) {
-                   ex.printStackTrace();
-               }
+               } catch (ParseException ex) {}
                memberView.setjEmailText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 4)));
                memberView.setjTeleponText(String.valueOf(memberView.getjMemberTable().getValueAt(row, 5)));
            } 
-        });
-        memberView.getjNameText().addKeyListener(new KeyAdapter(){
-           @Override
-           public void keyReleased(KeyEvent e){
-                tempId = memberView.getjNameText().getText();
-                if(tempId.length() > 3) tempId = tempId.substring(0,3);
-                memberView.setjKodeText(tempId.toUpperCase()+randId);
-           }
         });
     }
 
@@ -170,15 +147,13 @@ public class MemberController extends Controller{
         }
     }
     
-    public void removeAllListeners(MemberView v){
-        MouseListener ml [] = v.getjAddButton().getListeners(MouseListener.class);
-        for(MouseListener m : ml){
-            v.getjAddButton().removeMouseListener(m);
-        }
+    public String generateKodeAnggota(DefaultTableModel model){
+        String nnc = "NNC-";
+        int memberQty = Integer.valueOf(String.valueOf(model.getValueAt(model.getRowCount()-1, 0)).substring(5, 8)) + 1;
+        if(memberQty < 10) nnc += "000" + memberQty;
+        else if(memberQty < 100) nnc += "00" + memberQty;
+        else if(memberQty < 1000) nnc += "0" + memberQty;
+        else nnc += memberQty;
+        return nnc; 
     }
-    
-    public String generateKodeAnggota(){
-        //
-    }
-    
 }

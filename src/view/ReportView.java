@@ -39,7 +39,7 @@ public class ReportView extends javax.swing.JFrame {
         jTitleLabel = new javax.swing.JLabel();
         jTitleLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jViewButton = new javax.swing.JButton();
         jExitButton = new javax.swing.JButton();
         jRadioTransaction = new javax.swing.JRadioButton();
@@ -65,7 +65,7 @@ public class ReportView extends javax.swing.JFrame {
         jTitleLabel1.setAlignmentX(0.5F);
         jTitleLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
@@ -88,7 +88,7 @@ public class ReportView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         jViewButton.setText("Lihat");
 
@@ -183,8 +183,8 @@ public class ReportView extends javax.swing.JFrame {
         return jExitButton;
     }
 
-    public JTable getjTable1() {
-        return jTable1;
+    public JTable getjTable() {
+        return jTable;
     }
 
     public JButton getjPrintButton() {
@@ -213,7 +213,7 @@ public class ReportView extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioAnggota;
     private javax.swing.JRadioButton jRadioTransaction;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JLabel jTitleLabel;
     private javax.swing.JLabel jTitleLabel1;
     private javax.swing.JButton jViewButton;

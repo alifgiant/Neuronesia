@@ -27,7 +27,7 @@ public class MyApplication {
     public static void main(String[] args) {        
         MyApplication main = new MyApplication();
         extras = new DatabaseManager();
-        extras.connectToDatabase("jdbc:mysql://localhost:3306/neuronesia_db");
+        extras.connectToDatabase("jdbc:mysql://localhost:3306/neuronesia");
         main.startNextFrame(null, HomeController.class);
     }
     
@@ -58,7 +58,10 @@ public class MyApplication {
     
     public ArrayList<String []> getExtras(String key){
         if(key.equals("member")){
-            return extras.readAnggota();
+            return extras.loadAnggota();
+        }
+        else if(key.equals("transaction")){
+            return extras.loadTransaksi();
         }
         //else if(key.equals(""))
         return null;
@@ -68,8 +71,8 @@ public class MyApplication {
         if(key.equals("member")){
             extras.saveAnggota(value);
         }
-        else if(key.equals("editMember")){
-            extras.updateMember(value);
+        else if(key.equals("transaction")){
+            extras.saveTransaksi(value);
         }
     }
 }

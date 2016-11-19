@@ -37,8 +37,7 @@ public class HomeController extends Controller{
         HomeView mainView = (HomeView)super.view;
         mainView.getjMenuMember().addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                
+            public void mouseClicked(MouseEvent e) {                
                 context.startNextFrame(HomeController.this, MemberController.class);
             }
         }); 
