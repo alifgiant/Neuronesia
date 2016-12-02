@@ -6,6 +6,8 @@
 package controller;
 
 import app.MyApplication;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import view.AboutView;
 
 
@@ -14,26 +16,33 @@ import view.AboutView;
  * @author MuhammadAlif
  */
 public class AboutController extends Controller{
-    private static AboutController controller;
+    /*private static AboutController controller;
     
     public static AboutController newInstance(MyApplication context){
         if (controller == null) {
             controller = new AboutController(context);
         }
         return controller;
-    }
+    }*/
     
-    private AboutController(MyApplication context) {
+    public AboutController(MyApplication context) {
         super(context, new AboutView());        
     }        
 
     @Override
     public void start() {
         super.view.setVisible(true);
+        AboutView aboutView = (AboutView) super.view;
+        aboutView.getExitButton().addActionListener(new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                context.finish();
+            }        
+        });
     }
 
     @Override
     public void stop() {        
-        context.finish();
+        super.view.setVisible(false);
     }       
 }

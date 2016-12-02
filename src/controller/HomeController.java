@@ -16,16 +16,16 @@ import view.HomeView;
  */
 public class HomeController extends Controller{
     
-    private static HomeController controller;
+   /* private static HomeController controller;
     
     public static HomeController newInstance(MyApplication context){
         if (controller == null) {
             controller = new HomeController(context);
         }
         return controller;
-    }
+    }*/
 
-    private HomeController(MyApplication context) {        
+    public HomeController(MyApplication context) {        
         super(context, new HomeView());        
     }        
     
@@ -37,7 +37,7 @@ public class HomeController extends Controller{
         HomeView mainView = (HomeView)super.view;
         mainView.getjMenuMember().addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {                
                 context.startNextFrame(HomeController.this, MemberController.class);
             }
         }); 

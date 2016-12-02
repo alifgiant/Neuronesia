@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author MuhammadAlif
@@ -28,21 +30,71 @@ public class AboutView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jTitleLabel1 = new javax.swing.JLabel();
+        jTitleLabel = new javax.swing.JLabel();
+        jTitleLabel2 = new javax.swing.JLabel();
+        jExitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 105, 179));
         jPanel1.setPreferredSize(new java.awt.Dimension(950, 650));
 
+        jTitleLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTitleLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jTitleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitleLabel1.setText("VERSION 1.0");
+        jTitleLabel1.setAlignmentX(0.5F);
+        jTitleLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jTitleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jTitleLabel.setText("SISTEM INFORMASI");
+        jTitleLabel.setAlignmentX(0.5F);
+        jTitleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jTitleLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTitleLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jTitleLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitleLabel2.setText("NEURONESIA");
+        jTitleLabel2.setAlignmentX(0.5F);
+        jTitleLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jExitButton.setText("Keluar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 688, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTitleLabel2)
+                                    .addComponent(jTitleLabel1))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jTitleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTitleLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTitleLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addComponent(jExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,7 +157,15 @@ public class AboutView extends javax.swing.JFrame {
         });
     }
 
+    public JButton getExitButton(){
+        return jExitButton;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jExitButton;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jTitleLabel;
+    private javax.swing.JLabel jTitleLabel1;
+    private javax.swing.JLabel jTitleLabel2;
     // End of variables declaration//GEN-END:variables
 }

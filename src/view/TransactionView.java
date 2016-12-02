@@ -5,8 +5,12 @@
  */
 package view;
 
+import com.toedter.calendar.JDateChooser;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -47,24 +51,25 @@ public class TransactionView extends javax.swing.JFrame {
         jTitleLabel = new javax.swing.JLabel();
         jTitleLabel1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jNameText = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jAlamatText = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTeleponText = new javax.swing.JTextField();
+        totalBiaya = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jEmailText = new javax.swing.JTextField();
-        jBirthText = new javax.swing.JTextField();
+        namaLayanan = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jKodeText = new javax.swing.JTextField();
+        noTransaksi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        transactionTable = new javax.swing.JTable();
         jAddButton = new javax.swing.JButton();
         jChangeButton = new javax.swing.JButton();
         jSaveButton = new javax.swing.JButton();
         jDeleteButton = new javax.swing.JButton();
         jExitButton = new javax.swing.JButton();
+        nncText = new javax.swing.JTextField();
+        date = new com.toedter.calendar.JDateChooser();
+        kodeLayanan = new javax.swing.JComboBox<>();
+        noAnggota = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,10 +105,14 @@ public class TransactionView extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nama Layanan");
 
+        namaLayanan.setEditable(false);
+
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Kode Layanan");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        noTransaksi.setEditable(false);
+
+        transactionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
@@ -126,7 +135,7 @@ public class TransactionView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(transactionTable);
 
         jAddButton.setText("Tambah");
 
@@ -137,6 +146,13 @@ public class TransactionView extends javax.swing.JFrame {
         jDeleteButton.setText("Hapus");
 
         jExitButton.setText("Keluar");
+
+        nncText.setEditable(false);
+        nncText.setText("NNC-");
+
+        kodeLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADM", "IUN", "REG" }));
+
+        noAnggota.setEditable(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,23 +173,26 @@ public class TransactionView extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(54, 54, 54)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jKodeText)
-                            .addComponent(jNameText, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(jAlamatText, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                        .addGap(51, 51, 51)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nncText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(noAnggota, 0, 1, Short.MAX_VALUE))
+                            .addComponent(noTransaksi)
+                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTeleponText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(totalBiaya, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jEmailText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addComponent(namaLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(kodeLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,27 +223,28 @@ public class TransactionView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
-                            .addComponent(jKodeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(noTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nncText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(noAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jAlamatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kodeLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jEmailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(namaLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTeleponText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(totalBiaya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -267,72 +287,136 @@ public class TransactionView extends javax.swing.JFrame {
         });
     }
 
+    public JDateChooser getDate() {
+        return date;
+    }
+
+    public void setDate(String date) throws ParseException {
+        this.date.setDate(new SimpleDateFormat("dd-mm-yyyy").parse(date));
+    }
+
     public JButton getjAddButton() {
         return jAddButton;
     }
 
-    public JTextField getjAlamatText() {
-        return jAlamatText;
-    }
-
-    public JTextField getjBirthText() {
-        return jBirthText;
+    public void setjAddButton(JButton jAddButton) {
+        this.jAddButton = jAddButton;
     }
 
     public JButton getjChangeButton() {
         return jChangeButton;
     }
 
+    public void setjChangeButton(JButton jChangeButton) {
+        this.jChangeButton = jChangeButton;
+    }
+
     public JButton getjDeleteButton() {
         return jDeleteButton;
     }
 
-    public JTextField getjEmailText() {
-        return jEmailText;
+    public void setjDeleteButton(JButton jDeleteButton) {
+        this.jDeleteButton = jDeleteButton;
     }
 
     public JButton getjExitButton() {
         return jExitButton;
     }
 
-    public JTextField getjKodeText() {
-        return jKodeText;
+    public void setjExitButton(JButton jExitButton) {
+        this.jExitButton = jExitButton;
     }
 
     public JButton getjSaveButton() {
         return jSaveButton;
     }
 
-    public JTable getjTable1() {
-        return jTable1;
+    public void setjSaveButton(JButton jSaveButton) {
+        this.jSaveButton = jSaveButton;
     }
 
-    public JTextField getjTeleponText() {
-        return jTeleponText;
+    public JComboBox getKodeLayanan() {
+        return kodeLayanan;
+    }
+
+    public void setKodeLayanan(String kodeLayanan) {
+        if(kodeLayanan.equals("ADM")){
+            this.kodeLayanan.setSelectedIndex(0);
+        }
+        else if(kodeLayanan.equals("IUN")) {
+            this.kodeLayanan.setSelectedIndex(1);
+        }
+        else if(kodeLayanan.equals("REG")){
+            this.kodeLayanan.setSelectedIndex(2);
+        }
+    }
+
+    public JTextField getNamaLayanan() {
+        return namaLayanan;
+    }
+
+    public void setNamaLayanan(String namaLayanan) {
+        if(namaLayanan.equals("ADM")) this.namaLayanan.setText("Administrasi");
+        else if(namaLayanan.equals("IUN")) this.namaLayanan.setText("Iuran");
+        else if(namaLayanan.equals("REG")) this.namaLayanan.setText("Registrasi");
+        else this.namaLayanan.setText("");
+    }
+
+    public JComboBox getNoAnggota() {
+        return noAnggota;
+    }
+
+    public void setNoAnggota(String noAnggota) {
+        this.noAnggota.setSelectedItem(noAnggota);
+    }
+
+    public JTextField getNoTransaksi() {
+        return noTransaksi;
+    }
+
+    public void setNoTransaksi(String noTransaksi) {
+        this.noTransaksi.setText(noTransaksi);
+    }
+
+    public JTextField getTotalBiaya() {
+        return totalBiaya;
+    }
+
+    public void setTotalBiaya(String totalBiaya) {
+        this.totalBiaya.setText(totalBiaya);
+    }
+
+    public JTable getTransactionTable() {
+        return transactionTable;
+    }
+
+    public void setTransactionTable(JTable transactionTable) {
+        this.transactionTable = transactionTable;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton jAddButton;
-    private javax.swing.JTextField jAlamatText;
-    private javax.swing.JTextField jBirthText;
     private javax.swing.JButton jChangeButton;
     private javax.swing.JButton jDeleteButton;
-    private javax.swing.JTextField jEmailText;
     private javax.swing.JButton jExitButton;
-    private javax.swing.JTextField jKodeText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jNameText;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jSaveButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTeleponText;
     private javax.swing.JLabel jTitleLabel;
     private javax.swing.JLabel jTitleLabel1;
+    private javax.swing.JComboBox<String> kodeLayanan;
+    private javax.swing.JTextField namaLayanan;
+    private javax.swing.JTextField nncText;
+    private javax.swing.JComboBox<String> noAnggota;
+    private javax.swing.JTextField noTransaksi;
+    private javax.swing.JTextField totalBiaya;
+    private javax.swing.JTable transactionTable;
     // End of variables declaration//GEN-END:variables
 }
