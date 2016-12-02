@@ -52,14 +52,28 @@ public class ReportController extends Controller{
         
         reportView.getjRadioAnggota().addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e) {               
+            public void actionPerformed(ActionEvent e) {
+                reportView.getjTable().getColumnModel().getColumn(0).setHeaderValue("Kode Anggota");
+                reportView.getjTable().getColumnModel().getColumn(1).setHeaderValue("Nama");
+                reportView.getjTable().getColumnModel().getColumn(2).setHeaderValue("Alamat");
+                reportView.getjTable().getColumnModel().getColumn(3).setHeaderValue("Tanggal Lahir");
+                reportView.getjTable().getColumnModel().getColumn(4).setHeaderValue("Email");
+                reportView.getjTable().getColumnModel().getColumn(5).setHeaderValue("Telepon");
+                reportView.getjTable().getTableHeader().repaint();
                 setTableContent(memberList, tableModel);
             }
         });
         //reportView.getjRadioTransaction().
         reportView.getjRadioTransaction().addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e) {               
+            public void actionPerformed(ActionEvent e) {
+                reportView.getjTable().getColumnModel().getColumn(0).setHeaderValue("No Transaksi");
+                reportView.getjTable().getColumnModel().getColumn(1).setHeaderValue("No Anggota");
+                reportView.getjTable().getColumnModel().getColumn(2).setHeaderValue("Tgl Transaksi");
+                reportView.getjTable().getColumnModel().getColumn(3).setHeaderValue("Kode Layanan");
+                reportView.getjTable().getColumnModel().getColumn(4).setHeaderValue("Nama Layanan");
+                reportView.getjTable().getColumnModel().getColumn(5).setHeaderValue("Total Biaya");
+                reportView.getjTable().getTableHeader().repaint();
                 setTableContent(transactionList, tableModel);
             }
         });

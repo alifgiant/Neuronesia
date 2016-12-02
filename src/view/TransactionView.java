@@ -57,7 +57,6 @@ public class TransactionView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         namaLayanan = new javax.swing.JTextField();
-        kodeLayanan = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         noTransaksi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -69,7 +68,8 @@ public class TransactionView extends javax.swing.JFrame {
         jExitButton = new javax.swing.JButton();
         nncText = new javax.swing.JTextField();
         date = new com.toedter.calendar.JDateChooser();
-        noAnggota = new javax.swing.JTextField();
+        kodeLayanan = new javax.swing.JComboBox<>();
+        noAnggota = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +104,8 @@ public class TransactionView extends javax.swing.JFrame {
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nama Layanan");
+
+        namaLayanan.setEditable(false);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Kode Layanan");
@@ -148,6 +150,10 @@ public class TransactionView extends javax.swing.JFrame {
         nncText.setEditable(false);
         nncText.setText("NNC-");
 
+        kodeLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADM", "IUN", "REG" }));
+
+        noAnggota.setEditable(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,13 +173,13 @@ public class TransactionView extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(54, 54, 54)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(noTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nncText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(noAnggota))
-                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(51, 51, 51)
+                                .addComponent(noAnggota, 0, 1, Short.MAX_VALUE))
+                            .addComponent(noTransaksi)
+                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -181,12 +187,12 @@ public class TransactionView extends javax.swing.JFrame {
                                 .addComponent(totalBiaya, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                 .addComponent(namaLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(kodeLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(kodeLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,12 +335,20 @@ public class TransactionView extends javax.swing.JFrame {
         this.jSaveButton = jSaveButton;
     }
 
-    public JTextField getKodeLayanan() {
+    public JComboBox getKodeLayanan() {
         return kodeLayanan;
     }
 
     public void setKodeLayanan(String kodeLayanan) {
-        this.kodeLayanan.setText(kodeLayanan);
+        if(kodeLayanan.equals("ADM")){
+            this.kodeLayanan.setSelectedIndex(0);
+        }
+        else if(kodeLayanan.equals("IUN")) {
+            this.kodeLayanan.setSelectedIndex(1);
+        }
+        else if(kodeLayanan.equals("REG")){
+            this.kodeLayanan.setSelectedIndex(2);
+        }
     }
 
     public JTextField getNamaLayanan() {
@@ -342,15 +356,18 @@ public class TransactionView extends javax.swing.JFrame {
     }
 
     public void setNamaLayanan(String namaLayanan) {
-        this.namaLayanan.setText(namaLayanan);
+        if(namaLayanan.equals("ADM")) this.namaLayanan.setText("Administrasi");
+        else if(namaLayanan.equals("IUN")) this.namaLayanan.setText("Iuran");
+        else if(namaLayanan.equals("REG")) this.namaLayanan.setText("Registrasi");
+        else this.namaLayanan.setText("");
     }
 
-    public JTextField getNoAnggota() {
+    public JComboBox getNoAnggota() {
         return noAnggota;
     }
 
     public void setNoAnggota(String noAnggota) {
-        this.noAnggota.setText(noAnggota);
+        this.noAnggota.setSelectedItem(noAnggota);
     }
 
     public JTextField getNoTransaksi() {
@@ -394,10 +411,10 @@ public class TransactionView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jTitleLabel;
     private javax.swing.JLabel jTitleLabel1;
-    private javax.swing.JTextField kodeLayanan;
+    private javax.swing.JComboBox<String> kodeLayanan;
     private javax.swing.JTextField namaLayanan;
     private javax.swing.JTextField nncText;
-    private javax.swing.JTextField noAnggota;
+    private javax.swing.JComboBox<String> noAnggota;
     private javax.swing.JTextField noTransaksi;
     private javax.swing.JTextField totalBiaya;
     private javax.swing.JTable transactionTable;

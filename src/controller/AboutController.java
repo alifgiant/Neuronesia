@@ -6,6 +6,8 @@
 package controller;
 
 import app.MyApplication;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import view.AboutView;
 
 
@@ -30,10 +32,17 @@ public class AboutController extends Controller{
     @Override
     public void start() {
         super.view.setVisible(true);
+        AboutView aboutView = (AboutView) super.view;
+        aboutView.getExitButton().addActionListener(new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                context.finish();
+            }        
+        });
     }
 
     @Override
     public void stop() {        
-        context.finish();
+        super.view.setVisible(false);
     }       
 }

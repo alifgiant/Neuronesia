@@ -6,11 +6,14 @@
 package controller;
 
 import app.MyApplication;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,6 +38,9 @@ public class TransactionController extends Controller{
         
         /* Set Date format */
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        /* Set default date */
+        Date date = new Date();
+        transactionView.getDate().setDate(date);
 
         /* Set table data */
         DefaultTableModel tableModel = (DefaultTableModel) transactionView.getTransactionTable().getModel();
@@ -43,32 +49,41 @@ public class TransactionController extends Controller{
         ArrayList<String> listNoMember = new ArrayList<>();
         for(String [] member : listMember){
             listNoMember.add(member[0].substring(4,8));
+            transactionView.getNoAnggota().addItem(member[0].substring(4,8));
         }
+       
         setTableContent(oldListTransaction, tableModel);
         
-        /* Set default date */
-        try {
-            transactionView.getDate().setDate(dateFormat.parse("01-01-2016"));
-        } catch (ParseException ex) {}
         
         /* Set generated id */
-        transactionView.setNoTransaksi(generateNoTransaksi(tableModel));
+        transactionView.setNoTransaksi(generateNoTransaksi(dateFormat.format(transactionView.getDate().getDate()),tableModel));
+        
+        /* set default nama layanan */
+        String kode = (String) transactionView.getKodeLayanan().getSelectedItem();
+        transactionView.setNamaLayanan(kode);
         
         /* set listener */
+        transactionView.getKodeLayanan().addActionListener(new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String kode = (String) transactionView.getKodeLayanan().getSelectedItem();
+                transactionView.setNamaLayanan(kode);
+            }
+        });
         transactionView.getjAddButton().addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(java.awt.event.MouseEvent evt){
-                if(checkMember(listNoMember, transactionView.getNoAnggota().getText())){
+                if(checkMember(listNoMember, transactionView.getNoAnggota().getSelectedItem().toString())){
                     Object newTransaction [] = new Object [] {
-                        transactionView.getNoTransaksi().getText(),
-                        "NNC-" + transactionView.getNoAnggota().getText(),
+                        generateNoTransaksi(dateFormat.format(transactionView.getDate().getDate()),tableModel),
+                        "NNC-" + transactionView.getNoAnggota().getSelectedItem().toString(),
                         dateFormat.format(transactionView.getDate().getDate()),
-                        transactionView.getKodeLayanan().getText(),
+                        (String) transactionView.getKodeLayanan().getSelectedItem(),
                         transactionView.getNamaLayanan().getText(),
                         transactionView.getTotalBiaya().getText(),
                     };
                     tableModel.addRow(newTransaction);
-                    transactionView.setNoTransaksi(generateNoTransaksi(tableModel));
+                    transactionView.setNoTransaksi(generateNoTransaksi(dateFormat.format(transactionView.getDate().getDate()),tableModel));
                 }
                 else {
                     JOptionPane.showMessageDialog(transactionView, "No Anggota tidak terdapat pada Anggota manapun!");
@@ -86,10 +101,10 @@ public class TransactionController extends Controller{
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 int row = transactionView.getTransactionTable().getSelectedRow();
                 if(row != -1){
-                    if(checkMember(listNoMember,transactionView.getNoAnggota().getText())){
-                        transactionView.getTransactionTable().setValueAt("NNC-" + transactionView.getNoAnggota().getText(), row, 1);
+                    if(checkMember(listNoMember,transactionView.getNoAnggota().getSelectedItem().toString())){
+                        transactionView.getTransactionTable().setValueAt("NNC-" + transactionView.getNoAnggota().getSelectedItem().toString(), row, 1);
                         transactionView.getTransactionTable().setValueAt(dateFormat.format(transactionView.getDate().getDate()), row, 2);
-                        transactionView.getTransactionTable().setValueAt(transactionView.getKodeLayanan().getText(), row, 3);
+                        transactionView.getTransactionTable().setValueAt((String)transactionView.getKodeLayanan().getSelectedItem(), row, 3);
                         transactionView.getTransactionTable().setValueAt(transactionView.getNamaLayanan().getText(), row, 4);
                         transactionView.getTransactionTable().setValueAt(transactionView.getTotalBiaya().getText(), row ,5);
                     }
@@ -124,7 +139,7 @@ public class TransactionController extends Controller{
                         String.valueOf(tableModel.getValueAt(i, 5))
                     });
                 }
-                context.putExtra("member", listTransaction);
+                context.putExtra("transaction", listTransaction);
                 JOptionPane.showMessageDialog(transactionView, "Data Transaksi berhasil disimpan!");
             }    
         });
@@ -141,7 +156,7 @@ public class TransactionController extends Controller{
                    Logger.getLogger(TransactionController.class.getName()).log(Level.SEVERE, null, ex);
                }
                transactionView.setKodeLayanan(String.valueOf(transactionView.getTransactionTable().getValueAt(row, 3)));
-               transactionView.setNamaLayanan(String.valueOf(transactionView.getTransactionTable().getValueAt(row, 4)));
+               transactionView.setNamaLayanan(String.valueOf(transactionView.getTransactionTable().getValueAt(row, 3)));
                transactionView.setTotalBiaya(String.valueOf(transactionView.getTransactionTable().getValueAt(row, 5)));
            } 
         });
@@ -168,9 +183,11 @@ public class TransactionController extends Controller{
         }
     }
     
-    public String generateNoTransaksi(DefaultTableModel model){
-        String nnc = "TRS-";
-        int transactionQty = Integer.valueOf(String.valueOf(model.getValueAt(model.getRowCount()-1, 0)).substring(5, 8)) + 1;
+    public String generateNoTransaksi(String date, DefaultTableModel model){
+        String nnc = "NNC/" + date + "/";
+        int transactionQty;
+        if(model.getRowCount() == 0) transactionQty = 1;
+        else transactionQty = model.getRowCount() + 1;
         if(transactionQty < 10) nnc += "000" + transactionQty;
         else if(transactionQty < 100) nnc += "00" + transactionQty;
         else if(transactionQty < 1000) nnc += "0" + transactionQty;

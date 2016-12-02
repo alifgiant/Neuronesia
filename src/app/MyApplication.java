@@ -60,8 +60,9 @@ public class MyApplication {
         if(key.equals("member")){
             return extras.loadAnggota();
         }
-        else if(key.equals("transaction")){
+        else if(key.equals("transaction")){ 
             return extras.loadTransaksi();
+            
         }
         //else if(key.equals(""))
         return null;

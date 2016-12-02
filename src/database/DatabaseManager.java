@@ -46,10 +46,10 @@ public class DatabaseManager {
                 String value [] = new String [6];
                 value[0] = resultSet.getString("No_Anggota");
                 value[1] = resultSet.getString("Nama");
-                value[2] = resultSet.getString("Alamat");
-                value[3] = resultSet.getString("Tanggal_Lahir");
-                value[4] = resultSet.getString("Email");
-                value[5] = resultSet.getString("Telepon");
+                value[2] = resultSet.getString("Telepon");
+                value[3] = resultSet.getString("Email");
+                value[4] = resultSet.getString("Tanggal_Lahir");
+                value[5] = resultSet.getString("Alamat");
                 listMember.add(value);
             }
             System.out.println("Loading success!");
@@ -116,11 +116,11 @@ public class DatabaseManager {
         try {
             System.out.println("Truncate table...");
             statement = connection.createStatement();
-            statement.executeUpdate("TRUNCATE TABLE LAYANAN");
+            statement.executeUpdate("TRUNCATE TABLE ANGGOTA");
             System.out.println("Truncate table success!");
             String sqlCommand;
             for(String [] dataMember  : listTransaksi){
-                sqlCommand = "INSERT INTO LAYANAN VALUES ('" +
+                sqlCommand = "INSERT INTO ANGGOTA VALUES ('" +
                         dataMember[0] + "','" +
                         dataMember[1] + "','" +
                         dataMember[2] + "','" +
